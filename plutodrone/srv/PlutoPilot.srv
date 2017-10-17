@@ -1,0 +1,27 @@
+#requests
+
+int32 roll
+int32 pitch
+int32 yaw
+float32 accX
+float32 accY
+float32 accZ
+float32 gyroX
+float32 gyroY
+float32 gyroZ
+float32 magX
+float32 magY
+float32 magZ
+float32 alt
+
+---
+#response
+
+int32 rcRoll
+int32 rcPitch
+int32 rcYaw
+int32 rcThrottle
+int32 rcAUX1
+int32 rcAUX2
+int32 rcAUX3
+int32 rcAUX4
