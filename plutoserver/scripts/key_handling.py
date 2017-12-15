@@ -72,7 +72,7 @@ class send_data():
 			if self.key_value == 10:
 				self.forward()
 			if self.key_value == 20:
-				self.arm()
+				self.reset()
 			if self.key_value == 30:
 				self.left()
 			if self.key_value == 40:
