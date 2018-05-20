@@ -32,20 +32,22 @@ Example call: getkey()
 """
 def getKey():
     tty.setraw(sys.stdin.fileno())
-    rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
-    if rlist:
-        key = sys.stdin.read(1)
-    else:
-        key = ''
+    rlist, _, _ = select.select([sys.stdin], [], [])
+    key = sys.stdin.read(1)
+    if key:
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+        return key
+    #else:
+     #   key = ''
 
-    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
-    return key
+    #termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+    #return key
 
 if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
     rospy.init_node('simple_drone_teleop_key')
-    pub = rospy.Publisher('/input_key',Int16, queue_size=5) #publish the key pressed
-    rate=rospy.Rate(8)
+    pub = rospy.Publisher('/input_key',Int16, queue_size=10) #publish the key pressed
+    rate=rospy.Rate(20)
     msg_pub=0
     keyboard_control={  #dictionary containing the key pressed abd value associated with it
                       'i': 10,
@@ -73,6 +75,8 @@ if __name__=="__main__":
                 msg_pub=keyboard_control[key]
                 if key in control_to_change_value:
                     print "control_value"
+            if (key == '\x03'):
+                break
             #else:
                 #msg_pub=-1
             #rospy.loginfo(key);
