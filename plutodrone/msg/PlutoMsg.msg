@@ -6,4 +6,4 @@ int64 rcAUX1
 int64 rcAUX2
 int64 rcAUX3
 int64 rcAUX4
-int64 plutoIndex
+
