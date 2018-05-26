@@ -235,10 +235,6 @@ add_executable(plutonode src/PlutoNode.cpp)
 target_link_libraries(plutonode ${catkin_LIBRARIES} plutodrone)
 add_dependencies(plutonode plutodrone_generate_messages_cpp)
 
-add_executable(plutoswarm src/PlutoSwarm.cpp)
-target_link_libraries(plutoswarm ${catkin_LIBRARIES} plutodrone)
-add_dependencies(plutoswarm plutodrone_generate_messages_cpp)
-
 #add_executable(listener src/listener.cpp)
 #target_link_libraries(listener ${catkin_LIBRARIES})
 #add_dependencies(listener beginner_tutorials_generate_messages_cpp)
