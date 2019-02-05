@@ -13,7 +13,8 @@ float32 magX
 float32 magY
 float32 magZ
 float32 alt
-
+float32 battery
+int32 rssi
 ---
 #response
 
