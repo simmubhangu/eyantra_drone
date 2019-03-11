@@ -36,7 +36,6 @@ def getKey():
     if rlist:
         key = sys.stdin.read(1)
         sys.stdin.flush()
-        #rospy.sleep(0.1)
     else:
         key = ''
 
@@ -46,9 +45,9 @@ def getKey():
 if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
     rospy.init_node('simple_drone_teleop_key')
-    pub = rospy.Publisher('/input_key',Int16, queue_size=1) #publish the key pressed
-    rate=rospy.Rate(100)
-    msg_pub=0
+    pub = rospy.Publisher('/input_key',Int16, queue_size=1) #publish the key pressed on topic /imput_key
+    rate=rospy.Rate(100) # ncreased the rate 
+    msg_pub=0 # by default valuse should be 0
     keyboard_control={  #dictionary containing the key pressed abd value associated with it
                       'i': 10,
                       'k': 20,
@@ -73,21 +72,19 @@ if __name__=="__main__":
 
     try:
         pass
-        # print value()
         while not rospy.is_shutdown():
-          key = getKey()
-          #print "asfdasdf"
+          key = getKey()                          # get the key from keyboard
           #print key
-          if (key == '\x03'):
+          if (key == '\x03'):                     # to handle ctrl+c 
             break
           if key in keyboard_control.keys():
-            msg_pub=keyboard_control[key]
+            msg_pub=keyboard_control[key]         #Map the key with dictionary for valid value
             #print msg_pub
-            pub.publish(msg_pub)
+            pub.publish(msg_pub)                  # publish the corresponding value of key
           else:
-            msg_pub=80
+            msg_pub=80                            #If key is not pressed published the reset value to hover at point
             pub.publish(msg_pub)
-          if key in control_to_change_value:
+          if key in control_to_change_value:      #Other than main control (Optional)
             print "control_value"
             rate.sleep()
     except Exception as e:

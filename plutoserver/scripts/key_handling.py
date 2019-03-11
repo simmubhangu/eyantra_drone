@@ -10,7 +10,6 @@ class send_data():
 		rospy.init_node('drone_server')
 		self.command_pub = rospy.Publisher('/drone_command', PlutoMsg, queue_size=1)
 
-
 		self.key_value =0
 		self.cmd = PlutoMsg()
 		self.cmd.rcRoll =1500
