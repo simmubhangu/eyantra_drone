@@ -84,6 +84,9 @@ if __name__=="__main__":
             msg_pub=keyboard_control[key]
             #print msg_pub
             pub.publish(msg_pub)
+          else:
+            msg_pub=80
+            pub.publish(msg_pub)
           if key in control_to_change_value:
             print "control_value"
             rate.sleep()
