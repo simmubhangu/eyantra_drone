@@ -4,4 +4,10 @@
   <node name="drone_server" type="key_handling.py" pkg="plutoserver"/>
   <node name="key_command" type="key_command.py" pkg="plutoserver"/>
 
+  <!-- Node for connecting multiple plutos -->
+  <!-- <node name="plutoswarm" type="plutoswarm" pkg="plutodrone"/> -->
+
+  <!-- Node for connecting to pluto camera -->
+  <!-- <node name="plutocam" type="plutocam" pkg="plutodrone"/> -->
+
 </launch>

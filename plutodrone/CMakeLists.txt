@@ -18,12 +18,19 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
-
+  cv_bridge
+  image_transport
 
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+
+find_package(SDL2 REQUIRED SDL2)
+
+find_package(OpenCV REQUIRED)
+message(STATUS "Using OpenCV version ${OpenCV_VERSION}")
+find_package(Boost COMPONENTS program_options thread system REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -117,6 +124,8 @@ catkin_package(
   LIBRARIES plutodrone
 
  CATKIN_DEPENDS roscpp
+ cv_bridge
+ sensor_msgs
  rospy
  std_msgs
 
@@ -217,7 +226,7 @@ target_link_libraries(plutodrone)
 
 
 ## Find catkin and any catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs cv_bridge image_transport genmsg)
 
 ## Declare ROS messages and services
 #add_message_files(DIRECTORY msg FILES Num.msg)
@@ -229,7 +238,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg)
 ## Declare a catkin package
 catkin_package()
 
-include_directories(include ${catkin_INCLUDE_DIRS})
+
 
 add_executable(plutonode src/PlutoNode.cpp)
 target_link_libraries(plutonode ${catkin_LIBRARIES} plutodrone)
@@ -239,6 +248,15 @@ add_executable(plutoswarm src/PlutoSwarm.cpp)
 target_link_libraries(plutoswarm ${catkin_LIBRARIES} plutodrone)
 add_dependencies(plutoswarm plutodrone_generate_messages_cpp)
 
-#add_executable(listener src/listener.cpp)
-#target_link_libraries(listener ${catkin_LIBRARIES})
-#add_dependencies(listener beginner_tutorials_generate_messages_cpp)
+add_executable(plutocam src/PlutoCam.cpp)
+target_link_libraries(plutocam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} plutodrone)
+#add_dependencies(plutocam plutodrone_generate_messages_cpp)
+
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+
+target_link_libraries(plutodrone SDL2 "/usr/lib/x86_64-linux-gnu/libavcodec.so" "/usr/lib/x86_64-linux-gnu/libavformat.so" "/usr/lib/x86_64-linux-gnu/libavutil.so" "/usr/lib/x86_64-linux-gnu/libavdevice.so.56" "/usr/lib/x86_64-linux-gnu/libswscale.so" "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
+
+#target_link_libraries(PlutoCam ${OpenCV_LIBS} ${Boost_LIBRARIES})
+
+SET_TARGET_PROPERTIES(plutodrone PROPERTIES LINKER_LANGUAGE CXX)
