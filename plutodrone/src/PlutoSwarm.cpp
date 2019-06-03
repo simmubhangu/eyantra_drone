@@ -28,7 +28,8 @@ Protocol pro;
 ros::ServiceClient serviceClient;
 plutodrone::PlutoPilot service[2];
 
-int userRC[9]={0,0,0,0,0,0,0,0,0};
+//9 elements for Pluto index connected in the network
+int userRC[9]={1500,1500,1500,1500,1000,1000,1000,1000,0};
 
 //vector of all string ips
 vector <string> all_ips;
