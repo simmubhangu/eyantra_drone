@@ -27,7 +27,7 @@ Protocol pro;
 ros::ServiceClient serviceClient;
 plutodrone::PlutoPilot service;
 
-int userRC[8]={0,0,0,0,0,0,0,0};
+int userRC[8]={1500,1500,1500,1500,1000,1000,1000,1000};
 
 void *createSocket(void *threadid){
  isSocketCreate=com.connectSock();
