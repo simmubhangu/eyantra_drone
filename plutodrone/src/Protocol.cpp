@@ -2,8 +2,6 @@
 #include <plutodrone/Protocol.h>
 #include <string>
 
-
-
 std::string MSP_HEADER="$M<";
 
 int8_t inputBuffer[1024];
@@ -16,21 +14,16 @@ int pitch=0;
 int yaw=0;
 float battery=0;
 int rssi=0;
-
 float accX=0;
 float accY=0;
 float accZ=0;
-
 float gyroX=0;
 float gyroY=0;
 float gyroZ=0;
-
 float magX=0;
 float magY=0;
 float magZ=0;
-
 float alt=0;
-
 
 int FC_versionMajor=0;
 int FC_versionMinor=0;

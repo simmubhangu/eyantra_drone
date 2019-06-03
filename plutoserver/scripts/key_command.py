@@ -32,23 +32,22 @@ Example call: getkey()
 """
 def getKey():
     tty.setraw(sys.stdin.fileno())
-    rlist, _, _ = select.select([sys.stdin], [], [])
-    key = sys.stdin.read(1)
-    if key:
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
-        return key
-    #else:
-     #   key = ''
+    rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
+    if rlist:
+        key = sys.stdin.read(1)
+        sys.stdin.flush()
+    else:
+        key = ''
 
-    #termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
-    #return key
+    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+    return key
 
 if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
     rospy.init_node('simple_drone_teleop_key')
-    pub = rospy.Publisher('/input_key',Int16, queue_size=10) #publish the key pressed
-    rate=rospy.Rate(20)
-    msg_pub=0
+    pub = rospy.Publisher('/input_key',Int16, queue_size=1) #publish the key pressed on topic /imput_key
+    rate=rospy.Rate(100) # ncreased the rate 
+    msg_pub=0 # by default valuse should be 0
     keyboard_control={  #dictionary containing the key pressed abd value associated with it
                       'i': 10,
                       'k': 20,
@@ -62,25 +61,31 @@ if __name__=="__main__":
                       't':90,
                       'p':100,
                       'm':110,
-                      'n':120}
+                      'n':120,
+                      '+' : 15,
+                      '1' : 25,
+                      '2' : 30,
+                      '3' : 35,
+                      '4' : 45}
 
     control_to_change_value=('u','o',',','z','c') #tuple containing the key that change the value
 
     try:
         pass
-        # print value()
         while not rospy.is_shutdown():
-            key = getKey()
-            if key in keyboard_control.keys():
-                msg_pub=keyboard_control[key]
-                if key in control_to_change_value:
-                    print "control_value"
-            if (key == '\x03'):
-                break
-            #else:
-                #msg_pub=-1
-            #rospy.loginfo(key);
+          key = getKey()                          # get the key from keyboard
+          #print key
+          if (key == '\x03'):                     # to handle ctrl+c 
+            break
+          if key in keyboard_control.keys():
+            msg_pub=keyboard_control[key]         #Map the key with dictionary for valid value
+            #print msg_pub
+            pub.publish(msg_pub)                  # publish the corresponding value of key
+          else:
+            msg_pub=80                            #If key is not pressed published the reset value to hover at point
             pub.publish(msg_pub)
+          if key in control_to_change_value:      #Other than main control (Optional)
+            print "control_value"
             rate.sleep()
     except Exception as e:
         print e

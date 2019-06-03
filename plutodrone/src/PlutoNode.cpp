@@ -40,6 +40,8 @@ void *writeFunction(void *threadid){
   requests.push_back(MSP_ATTITUDE);
   requests.push_back(MSP_RAW_IMU);
   requests.push_back(MSP_ALTITUDE);
+  requests.push_back(MSP_ANALOG);
+
 
   while(1)
   {
@@ -87,6 +89,9 @@ void *serviceFunction(void *threadid){
        service.request.pitch=pitch;
        service.request.yaw=yaw;
        service.request.alt=alt;
+       service.request.battery=battery;
+       service.request.rssi=rssi;
+
        // cout << alt << endl;
     //usleep(1000);
   }

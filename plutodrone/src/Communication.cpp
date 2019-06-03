@@ -276,19 +276,7 @@ void Communication::readFrame(){
         //  DataFlow = DATA_FLOW_TIME_OUT;
       }
     }else {
-      // Log.e("Multiwii protocol", "invalid checksum for command "
-      //         + ((int) (cmd & 0xFF)) + ": " + (checksum & 0xFF)
-      //         + " expected, got " + (int) (c & 0xFF));
-      // Log.e("Multiwii protocol", "<" + (cmd & 0xFF) + " "
-      //         + (dataSize & 0xFF) + "> {");
-      // for (i = 0; i < dataSize; i++) {
-      // if (i != 0) {
-      // Log.e("Multiwii protocol"," ");
-      // }
-      // Log.e("Multiwii protocol",(inBuf[i] & 0xFF));
-      // }
-      //Log.e("Multiwii protocol", "} [" + c + "]");
-      //Log.e("Multiwii protocol", new String(inBuf, 0, dataSize));
+
     }
     c_state = IDLE;
   }
@@ -531,116 +519,12 @@ void Communication::readMulFrame(int index){
         //SONG BO ---------------------------------------
         //  DataFlow = DATA_FLOW_TIME_OUT;
       }
-    }else {
-      // Log.e("Multiwii protocol", "invalid checksum for command "
-      //         + ((int) (cmd & 0xFF)) + ": " + (checksum & 0xFF)
-      //         + " expected, got " + (int) (c & 0xFF));
-      // Log.e("Multiwii protocol", "<" + (cmd & 0xFF) + " "
-      //         + (dataSize & 0xFF) + "> {");
-      // for (i = 0; i < dataSize; i++) {
-      // if (i != 0) {
-      // Log.e("Multiwii protocol"," ");
-      // }
-      // Log.e("Multiwii protocol",(inBuf[i] & 0xFF));
-      // }
-      //Log.e("Multiwii protocol", "} [" + c + "]");
-      //Log.e("Multiwii protocol", new String(inBuf, 0, dataSize));
+    }else 
+    {
+
     }
     c_state = IDLE;
   }
   // cout<<c_state;
 }
 
-
-// void Communication::readFrame()
-//
-// {
-//
-//
-//
-//
-//
-//
-//
-//                  len = 0;
-//                  checksum=0;
-//                  command=0;
-//                  payload_size=0;
-//                  checksumIndex=5;
-//
-//                  while (!socketSyckLock) {
-//                    /* code */
-//                 //   printf("value of synclock in read = %i\n",socketSyckLock );
-//                    usleep(2);
-//                  }
-//
-//                 usleep(1000);
-//                  len = readSock(buf,1024);
-//
-//                  if(len > 0) {
-//                   //   NSMutableData* data=[[NSMutableData alloc] initWithLength:0];
-//
-//                     // [data appendBytes: (const void *)buf length:len];
-//
-//                      // NSString *s = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-//
-//                      printf("buffred read length= %i\n",len );
-//
-//
-//                      char c=buf[0];
-//
-//                      if(buf[0]=='$'&&buf[1]=='M'&&buf[2]=='>')
-//                      {
-//
-//
-//                          payload_size=(buf[3] & 0xFF);
-//                          command=(buf[4] & 0xFF);
-//                          checksum^=(payload_size & 0xFF);
-//                          checksum^=(command & 0xFF);
-//                          indx=0;
-//
-//  //
-//                           printf("####### Recevied Packet MSP NO =%i\n",command);
-//                           printf("####### Recevied Packet Payload Size=%i\n",payload_size);
-//
-//                          for(int i=5;i<len-1;i++)
-//                          {
-//
-//                              uint8_t k=(int8_t)(buf[i] & 0xFF);
-//
-//                               inputBuffer[indx++]=k;
-//                            //   NSLog(@"####### value of =%i",inputBuffer[indx-1]);
-//
-//
-//                              checksum^=(buf[i] & 0xFF);
-//                              checksumIndex++;
-//
-//                          }
-//
-//                        if((checksum & 0xFF)==(buf[checksumIndex]&0xFF))
-//                         {
-//                            printf("####### valid packet\n");
-//
-//                           bufferIndex=0;
-//                         if(payload_size>0)
-//
-//                         pro.evaluateCommand(command);
-//
-//                         }
-//
-//
-//                      }
-//
-//
-//                   //  printf("Reading in the following:\n");
-//                   // printf("%s", buf);
-//
-//                     // [self readIn:s];
-//
-//                   //   [data release];
-//                  }
-//
-//
-//                 socketSyckLock=0;
-//
-// }
