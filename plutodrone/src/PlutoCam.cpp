@@ -92,7 +92,7 @@ static void read_buffer(void* lpParam, lewei_video_frame *pFrame)
 
     if (!pVideoFrameIn)
         pVideoFrameIn = av_frame_alloc();
-    pVideoFrameOut = avcodec_alloc_frame();
+    pVideoFrameOut = av_frame_alloc();//avcodec_alloc_frame();
 
     AVPacket pkt;
     av_init_packet(&pkt);
