@@ -60,8 +60,8 @@ bool Communication::connectSock(){
 
   addr.sin_family = AF_INET;
   addr.sin_port = htons(23);//23 is the PORT to connect to as defined in PlutoNode.cpp!
-  addr.sin_addr.s_addr = inet_addr("192.168.4.1");
-
+  // addr.sin_addr.s_addr = inet_addr("192.168.4.1");
+  addr.sin_addr.s_addr = inet_addr("192.168.0.1");
   //socket() sets it to blocking
   // Set to non-blocking. arg will re
   if( (arg = fcntl(sockID, F_GETFL, NULL)) < 0) {

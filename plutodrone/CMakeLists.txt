@@ -255,7 +255,9 @@ target_link_libraries(plutocam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRAR
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 
-target_link_libraries(plutodrone SDL2 "/usr/lib/x86_64-linux-gnu/libavcodec.so" "/usr/lib/x86_64-linux-gnu/libavformat.so" "/usr/lib/x86_64-linux-gnu/libavutil.so" "/usr/lib/x86_64-linux-gnu/libavdevice.so.56" "/usr/lib/x86_64-linux-gnu/libswscale.so" "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
+target_link_libraries(plutodrone SDL2 "/usr/lib/x86_64-linux-gnu/libavcodec.so" "/usr/lib/x86_64-linux-gnu/libavformat.so" 
+"/usr/lib/x86_64-linux-gnu/libavutil.so" "/usr/lib/x86_64-linux-gnu/libavdevice.so.56" 
+"/usr/lib/x86_64-linux-gnu/libswscale.so" "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
 
 #target_link_libraries(PlutoCam ${OpenCV_LIBS} ${Boost_LIBRARIES})
 

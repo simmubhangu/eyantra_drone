@@ -92,7 +92,9 @@ static void read_buffer(void* lpParam, lewei_video_frame *pFrame)
 
     if (!pVideoFrameIn)
         pVideoFrameIn = av_frame_alloc();
-    pVideoFrameOut = avcodec_alloc_frame();
+    	
+    if (!pVideoFrameOut)
+    	pVideoFrameOut = av_frame_alloc();//avcodec_alloc_frame();
 
     AVPacket pkt;
     av_init_packet(&pkt);
@@ -146,5 +148,6 @@ static void read_buffer(void* lpParam, lewei_video_frame *pFrame)
     
     video_free_frame_ram(pFrame);
     av_free_packet(&pkt);
+    av_free(buffer);
     sws_freeContext(img_convert_ctx);
 }
