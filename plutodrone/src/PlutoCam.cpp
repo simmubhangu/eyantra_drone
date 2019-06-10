@@ -15,6 +15,7 @@ extern "C" {
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 
+
 #include "plutodrone/liblewei.h"
 #include "std_msgs/String.h"
 
@@ -27,6 +28,10 @@ using namespace std;
 ros::Publisher chatter_pub;
 image_transport::Publisher cam_pub;
 sensor_msgs::ImagePtr msg;
+
+sensor_msgs::CameraInfo info_pluto;
+
+ros::Publisher pub_info_pluto;
 
 uint8_t *pframe_pixel;
 AVFrame *pVideoFrameIn, *pVideoFrameOut;
@@ -45,7 +50,10 @@ int main(int argc, char **argv)
 
   ros::NodeHandle n;
 
+
   image_transport::ImageTransport it(n);
+
+  pub_info_pluto = n.advertise<sensor_msgs::CameraInfo>("drone_cam/camera_info", 1);
 
   cam_pub = it.advertise("/drone_cam", 1);
 
@@ -92,7 +100,7 @@ static void read_buffer(void* lpParam, lewei_video_frame *pFrame)
 
     if (!pVideoFrameIn)
         pVideoFrameIn = av_frame_alloc();
-    	
+
     if (!pVideoFrameOut)
     	pVideoFrameOut = av_frame_alloc();//avcodec_alloc_frame();
 
@@ -122,13 +130,13 @@ static void read_buffer(void* lpParam, lewei_video_frame *pFrame)
     }
 
     struct SwsContext * img_convert_ctx;
-    
-    img_convert_ctx = sws_getCachedContext(NULL,pCodecCtxc->width, pCodecCtxc->height, pCodecCtxc->pix_fmt, pCodecCtxc->width, 
+
+    img_convert_ctx = sws_getCachedContext(NULL,pCodecCtxc->width, pCodecCtxc->height, pCodecCtxc->pix_fmt, pCodecCtxc->width,
         pCodecCtxc->height, AV_PIX_FMT_BGR24, SWS_BICUBIC, NULL, NULL,NULL);
-    
-    sws_scale(img_convert_ctx, ((AVPicture*)pVideoFrameIn)->data, ((AVPicture*)pVideoFrameIn)->linesize, 0, pCodecCtxc->height, 
+
+    sws_scale(img_convert_ctx, ((AVPicture*)pVideoFrameIn)->data, ((AVPicture*)pVideoFrameIn)->linesize, 0, pCodecCtxc->height,
         ((AVPicture *)pVideoFrameOut)->data, ((AVPicture *)pVideoFrameOut)->linesize);
- 
+
     Mat img(pVideoFrameIn->height,pVideoFrameIn->width,CV_8UC3,pVideoFrameOut->data[0]);
 
     try{
@@ -138,14 +146,18 @@ static void read_buffer(void* lpParam, lewei_video_frame *pFrame)
         return;
     }
 
+
     ros::Rate loop_rate(5);
     // imshow("display",img);
     cvWaitKey(1);
 
+    info_pluto.header.stamp = ros::Time::now();
+    pub_info_pluto.publish(info_pluto);
+
     cam_pub.publish(msg);
-    
+
     ros::spinOnce();
-    
+
     video_free_frame_ram(pFrame);
     av_free_packet(&pkt);
     av_free(buffer);
