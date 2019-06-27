@@ -9,8 +9,8 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <errno.h>
-#include <plutodrone/Communication.h>
-#include <plutodrone/Protocol.h>
+#include <eyantra_drone/Communication.h>
+#include <eyantra_drone/Protocol.h>
 
 
 using namespace std;

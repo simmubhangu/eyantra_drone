@@ -65,7 +65,7 @@ find_package(Boost COMPONENTS program_options thread system REQUIRED)
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  PlutoMsg.msg
+  eyantra_drone.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -121,7 +121,7 @@ add_service_files(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES plutodrone
+  LIBRARIES drone_client
 
  CATKIN_DEPENDS roscpp
  cv_bridge
@@ -147,8 +147,8 @@ include_directories(include)
 #   src/${PROJECT_NAME}/whyconclient.cpp
 # )
 
-add_library(drone_server src/Communication.cpp src/Protocol.cpp)
-target_link_libraries(eyantra_drone)
+add_library(drone_client src/Communication.cpp src/Protocol.cpp)
+target_link_libraries(drone_client)
 
 
 ## Add cmake target dependencies of the library
@@ -240,25 +240,25 @@ catkin_package()
 
 
 
-add_executable(drone_client src/DroneNode.cpp)
-target_link_libraries(drone_client ${catkin_LIBRARIES} drone_client)
-add_dependencies(drone_client drone_client_generate_messages_cpp)
+add_executable(droneclient src/DroneNode.cpp)
+target_link_libraries(droneclient ${catkin_LIBRARIES} drone_client)
+add_dependencies(droneclient drone_client_generate_messages_cpp)
 
-add_executable(drone_swarm src/DroneSwarm.cpp)
-target_link_libraries(drone_swarm ${catkin_LIBRARIES} drone_client)
-add_dependencies(drone_swarm drone_client_generate_messages_cpp)
+add_executable(droneswarm src/DroneSwarm.cpp)
+target_link_libraries(droneswarm ${catkin_LIBRARIES} drone_client)
+add_dependencies(droneswarm drone_client_generate_messages_cpp)
 
-add_executable(drone_cam src/DroneCam.cpp)
-target_link_libraries(drone_cam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} drone_client)
-#add_dependencies(drone_cam drone_client_generate_messages_cpp)
+add_executable(dronecam src/DroneCam.cpp)
+target_link_libraries(dronecam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} drone_client)
+#add_dependencies(dronecam drone_client_generate_messages_cpp)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 
-target_link_libraries(drone_client SDL2 "/usr/lib/x86_64-linux-gnu/libavcodec.so" "/usr/lib/x86_64-linux-gnu/libavformat.so" 
+target_link_libraries(dronecam SDL2 "/usr/lib/x86_64-linux-gnu/libavcodec.so" "/usr/lib/x86_64-linux-gnu/libavformat.so" 
 "/usr/lib/x86_64-linux-gnu/libavutil.so" "/usr/lib/x86_64-linux-gnu/libavdevice.so" 
 "/usr/lib/x86_64-linux-gnu/libswscale.so" "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
 
 #target_link_libraries(DroneCam ${OpenCV_LIBS} ${Boost_LIBRARIES})
 
-SET_TARGET_PROPERTIES(drone_client PROPERTIES LINKER_LANGUAGE CXX)
+SET_TARGET_PROPERTIES(droneclient PROPERTIES LINKER_LANGUAGE CXX)

@@ -1,17 +1,17 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "plutodrone/PlutoPilot.h"
+#include "drone_client/drone_service.h"
 #include <geometry_msgs/PoseArray.h>
 #include <sys/time.h>
 #include <boost/thread.hpp>
 #include <boost/chrono.hpp>
 #include <pthread.h>
 #include <unistd.h>
-#include <plutodrone/Common.h>
-#include <plutodrone/Protocol.h>
-#include <plutodrone/PlutoMsg.h>
-// #include <plutodrone/JoystickClient.h>
-// #include <plutodrone/Position.h>
+#include <eyantra_drone/Common.h>
+#include <eyantra_drone/Protocol.h>
+#include <drone_client/eyantra_drone.h>
+// #include <eyantra_drone/JoystickClient.h>
+// #include <eyantra_drone/Position.h>
 
 
 #define PORT 23
@@ -25,7 +25,7 @@ Communication com;
 Protocol pro;
 
 ros::ServiceClient serviceClient;
-plutodrone::PlutoPilot service;
+drone_client::drone_service service;
 
 int userRC[8]={1500,1500,1500,1500,1000,1000,1000,1000};
 
@@ -99,7 +99,7 @@ void *serviceFunction(void *threadid){
  pthread_exit(NULL);
 }
 
-void Callback(const plutodrone::PlutoMsg::ConstPtr& msg){
+void Callback(const drone_client::eyantra_drone::ConstPtr& msg){
  userRC[0] = msg->rcRoll;
  userRC[1] = msg->rcPitch;
  userRC[2] = msg->rcThrottle;
@@ -114,7 +114,7 @@ void Callback(const plutodrone::PlutoMsg::ConstPtr& msg){
 int main(int argc, char **argv){
     pthread_t thread, readThread, writeThread, serviceThread;
     int rc;
-    ros::init(argc, argv, "plutonode");
+    ros::init(argc, argv, "dronenode");
     ros::NodeHandle n;
     ros::Subscriber sub = n.subscribe("drone_command", 1000, Callback);
     rc = pthread_create(&thread, NULL, createSocket, 	(void *)1);
@@ -142,7 +142,7 @@ int main(int argc, char **argv){
         exit(-1);
       }
 
-      serviceClient = n.serviceClient<plutodrone::PlutoPilot>("PlutoService",true);
+      serviceClient = n.serviceClient<drone_client::drone_service>("droneService",true);
       //cout << "main() : creating service thread, " << i << endl;
       rc = pthread_create(&serviceThread, NULL, serviceFunction, 	(void *)4);
       

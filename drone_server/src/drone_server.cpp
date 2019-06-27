@@ -1,8 +1,8 @@
 #include "ros/ros.h"
-#include "plutodrone/PlutoPilot.h"
+#include "drone_client/drone_service.h"
 
-bool myFunction(plutodrone::PlutoPilot::Request  &req,
-         plutodrone::PlutoPilot::Response &res)
+bool myFunction(drone_client::drone_service::Request  &req,
+         drone_client::drone_service::Response &res)
 {
   ROS_INFO("Ax=%f, Ay=%f, Az=%f", req.accX, req.accY, req.accZ);
   ROS_INFO("Gx=%f, Gy=%f, Gz=%f", req.gyroX, req.gyroY, req.gyroZ);

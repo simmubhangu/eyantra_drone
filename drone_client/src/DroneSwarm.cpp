@@ -1,18 +1,18 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "plutodrone/PlutoPilot.h"
+#include "drone_client/drone_service.h"
 #include <geometry_msgs/PoseArray.h>
 #include <sys/time.h>
 #include <boost/thread.hpp>
 #include <boost/chrono.hpp>
 #include <pthread.h>
 #include <unistd.h>
-#include <plutodrone/Common.h>
-#include <plutodrone/Protocol.h>
-#include <plutodrone/PlutoMsg.h>
+#include <eyantra_drone/Common.h>
+#include <eyantra_drone/Protocol.h>
+#include <drone_client/eyantra_drone.h>
 #include <stdlib.h>
-// #include <plutodrone/JoystickClient.h>
-// #include <plutodrone/Position.h>
+// #include <eyantra_drone/JoystickClient.h>
+// #include <eyantra_drone/Position.h>
 #include <string>
 
 #define PORT 23
@@ -26,9 +26,9 @@ Communication com;
 Protocol pro;
 
 ros::ServiceClient serviceClient;
-plutodrone::PlutoPilot service[2];
+drone_client::drone_service service[2];
 
-//9 elements for Pluto index connected in the network
+//9 elements for drone index connected in the network
 int userRC[9]={1500,1500,1500,1500,1000,1000,1000,1000,0};
 
 //vector of all string ips
@@ -122,7 +122,7 @@ void *serviceFunction(void *arg){
  pthread_exit(NULL);
 }
 
-void Callback(const plutodrone::PlutoMsg::ConstPtr& msg){
+void Callback(const drone_client::eyantra_drone::ConstPtr& msg){
  userRC[0] = msg->rcRoll;
  userRC[1] = msg->rcPitch;
  userRC[2] = msg->rcThrottle;
@@ -131,17 +131,13 @@ void Callback(const plutodrone::PlutoMsg::ConstPtr& msg){
  userRC[5] = msg->rcAUX2;
  userRC[6] = msg->rcAUX3;
  userRC[7] = msg->rcAUX4;
- userRC[8] = msg->plutoIndex;
+ userRC[8] = msg->droneIndex;
  // cout << "roll = " << userRC[0] << "pitch = " <<userRC[1] << "Throttle = "<< userRC[2]  << endl;
-}
-
-void connectPluto(){
-
 }
 
 int main(int argc, char **argv){
   
-  ros::init(argc, argv, "plutoswarm");
+  ros::init(argc, argv, "droneswarm");
 
   //add IPs here  
   all_ips.push_back("192.168.43.151");
@@ -155,7 +151,7 @@ int main(int argc, char **argv){
   
   //Topic name. Index gets appended in for loop
   char topic_name[] = "drone_command/ ";
-  char service_name[] = "PlutoService ";
+  char service_name[] = "droneService ";
 
   ros::NodeHandle n;
 
@@ -181,7 +177,7 @@ int main(int argc, char **argv){
     service_name[strlen(service_name)-1] = 0x30+i;
     
     //Multiple topics is not really required since a single callback is being used
-    //and PlutoMsg is modified to identify the drone by index starting from 0.
+    //and droneMsg is modified to identify the drone by index starting from 0.
     //However, I've placed it to make it user friendly, because people are stupid!
     sub[i] = n.subscribe(topic_name, 1000, Callback);
     
@@ -220,7 +216,7 @@ int main(int argc, char **argv){
 
       cout<<service_name;
 
-      serviceClient = n.serviceClient<plutodrone::PlutoPilot>(service_name,true);
+      serviceClient = n.serviceClient<drone_client::drone_service>(service_name,true);
       rc = pthread_create(&sds[i], NULL, serviceFunction, (void *) &ipStructVar);
         
       if (rc)

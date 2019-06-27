@@ -204,8 +204,8 @@ include_directories(
 
 
 
-add_executable(drone_server src/drone_server.cpp)
-target_link_libraries(drone_server ${catkin_LIBRARIES})
-add_dependencies(drone_server drone_server_gencpp)
+add_executable(droneserver src/drone_server.cpp)
+target_link_libraries(droneserver ${catkin_LIBRARIES})
+add_dependencies(droneserver drone_server_gencpp)
 
 

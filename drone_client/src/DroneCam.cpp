@@ -15,7 +15,7 @@ extern "C" {
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 
-#include "plutodrone/liblewei.h"
+#include "eyantra_drone/liblewei.h"
 #include "std_msgs/String.h"
 
 #include <opencv2/opencv.hpp>
@@ -41,7 +41,7 @@ static void read_buffer(void* lpParam, lewei_video_frame *pFrame);
 int main(int argc, char **argv)
 {
 
-  ros::init(argc, argv, "plutocam");
+  ros::init(argc, argv, "droneCam");
 
   ros::NodeHandle n;
 
