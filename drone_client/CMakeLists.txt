@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(plutodrone)
+project(drone_client)
 
 ## Add support for C++11, supported in ROS Kinetic and newer
 # add_definitions(-std=c++11)
@@ -71,7 +71,7 @@ add_message_files(
 ## Generate services in the 'srv' folder
 add_service_files(
    FILES
-    PlutoPilot.srv
+    drone_service.srv
 #   Service2.srv
  )
 
@@ -147,8 +147,8 @@ include_directories(include)
 #   src/${PROJECT_NAME}/whyconclient.cpp
 # )
 
-add_library(plutodrone src/Communication.cpp src/Protocol.cpp)
-target_link_libraries(plutodrone)
+add_library(drone_server src/Communication.cpp src/Protocol.cpp)
+target_link_libraries(eyantra_drone)
 
 
 ## Add cmake target dependencies of the library
@@ -240,25 +240,25 @@ catkin_package()
 
 
 
-add_executable(plutonode src/PlutoNode.cpp)
-target_link_libraries(plutonode ${catkin_LIBRARIES} plutodrone)
-add_dependencies(plutonode plutodrone_generate_messages_cpp)
+add_executable(drone_client src/DroneNode.cpp)
+target_link_libraries(drone_client ${catkin_LIBRARIES} drone_client)
+add_dependencies(drone_client drone_client_generate_messages_cpp)
 
-add_executable(plutoswarm src/PlutoSwarm.cpp)
-target_link_libraries(plutoswarm ${catkin_LIBRARIES} plutodrone)
-add_dependencies(plutoswarm plutodrone_generate_messages_cpp)
+add_executable(drone_swarm src/DroneSwarm.cpp)
+target_link_libraries(drone_swarm ${catkin_LIBRARIES} drone_client)
+add_dependencies(drone_swarm drone_client_generate_messages_cpp)
 
-add_executable(plutocam src/PlutoCam.cpp)
-target_link_libraries(plutocam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} plutodrone)
-#add_dependencies(plutocam plutodrone_generate_messages_cpp)
+add_executable(drone_cam src/DroneCam.cpp)
+target_link_libraries(drone_cam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} drone_client)
+#add_dependencies(drone_cam drone_client_generate_messages_cpp)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 
-target_link_libraries(plutodrone SDL2 "/usr/lib/x86_64-linux-gnu/libavcodec.so" "/usr/lib/x86_64-linux-gnu/libavformat.so" 
+target_link_libraries(drone_client SDL2 "/usr/lib/x86_64-linux-gnu/libavcodec.so" "/usr/lib/x86_64-linux-gnu/libavformat.so" 
 "/usr/lib/x86_64-linux-gnu/libavutil.so" "/usr/lib/x86_64-linux-gnu/libavdevice.so" 
 "/usr/lib/x86_64-linux-gnu/libswscale.so" "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
 
-#target_link_libraries(PlutoCam ${OpenCV_LIBS} ${Boost_LIBRARIES})
+#target_link_libraries(DroneCam ${OpenCV_LIBS} ${Boost_LIBRARIES})
 
-SET_TARGET_PROPERTIES(plutodrone PROPERTIES LINKER_LANGUAGE CXX)
+SET_TARGET_PROPERTIES(drone_client PROPERTIES LINKER_LANGUAGE CXX)

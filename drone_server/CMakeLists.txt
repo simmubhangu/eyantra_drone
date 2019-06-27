@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(plutoserver)
+project(drone_server)
 
 ## Add support for C++11, supported in ROS Kinetic and newer
 # add_definitions(-std=c++11)
@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  plutodrone
+  drone_client
   message_generation
 
 )
@@ -107,7 +107,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   #INCLUDE_DIRS include
-  LIBRARIES plutoclient
+  LIBRARIES drone_client
   CATKIN_DEPENDS roscpp rospy std_msgs
   #DEPENDS system_lib
   message_runtime
@@ -126,7 +126,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/plutoclient.cpp
+#   src/${PROJECT_NAME}/drone_client.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -204,8 +204,8 @@ include_directories(
 
 
 
-add_executable(plutoserver src/plutoserver.cpp)
-target_link_libraries(plutoserver ${catkin_LIBRARIES})
-add_dependencies(plutoserver plutoserver_gencpp)
+add_executable(drone_server src/drone_server.cpp)
+target_link_libraries(drone_server ${catkin_LIBRARIES})
+add_dependencies(drone_server drone_server_gencpp)
 
 
