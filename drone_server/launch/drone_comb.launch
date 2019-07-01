@@ -1,8 +1,8 @@
 <launch>
 
-  <node name="plutonode" type="plutonode" pkg="plutodrone"/>
-  <node name="drone_server" type="key_handling.py" pkg="plutoserver"/>
-  <node name="key_command" type="key_command.py" pkg="plutoserver"/>
+  <node name="droneserver" type="droneserver" pkg="drone_server"/>
+  <node name="key_handling" type="key_handling.py" pkg="drone_server"/>
+  <node name="key_command" type="key_command.py" pkg="drone_server"/>
 
   <!-- Node for connecting multiple plutos -->
   <!-- <node name="plutoswarm" type="plutoswarm" pkg="plutodrone"/> -->
