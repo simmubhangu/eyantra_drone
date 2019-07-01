@@ -107,7 +107,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   #INCLUDE_DIRS include
-  LIBRARIES drone_client
+  LIBRARIES edrone_client
   CATKIN_DEPENDS roscpp rospy std_msgs
   #DEPENDS system_lib
   message_runtime
@@ -194,7 +194,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_plutoclient.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_droneclient.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

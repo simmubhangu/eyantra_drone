@@ -121,7 +121,7 @@ add_service_files(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES drone_client
+  LIBRARIES edrone_client
 
  CATKIN_DEPENDS roscpp
  cv_bridge
