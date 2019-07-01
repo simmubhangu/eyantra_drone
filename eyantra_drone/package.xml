@@ -8,8 +8,8 @@
   <license>BSD</license>
   <author email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</author>
   <buildtool_depend>catkin</buildtool_depend>
-  <run_depend>drone_server</run_depend>
-  <run_depend>drone_client</run_depend>
+  <run_depend>edrone_server</run_depend>
+  <run_depend>edrone_client</run_depend>
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- Other tools can request additional information be placed here -->
