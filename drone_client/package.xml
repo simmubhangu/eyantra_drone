@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <package>
   <name>drone_client</name>
-  <version>1.0.0</version>
-  <description>The eyantra_drone package</description>
+  <version>1.0.1</version>
+  <description>eyantra_drone package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="simranjeet@cse.iitb.ac.in">simranjeet</maintainer>
+  <maintainer email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</maintainer>
 
+  <author email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</author>
 
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->

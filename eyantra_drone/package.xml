@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package>
   <name>eyantra_drone</name>
-  <version>0.0.1</version>
-  <description>This package is used to communicate between drone and PC/Laptop through ROS. Drone will send the accelerometer,gyroscope, magnetometer and altitude data. You can subscribe to the roll, pitch and yaw and battery level</description>
+  <version>1.0.1</version>
+  <description>This package is used to communicate between drone and PC/Laptop through ROS. Drone will send the accelerometer,gyroscope, magnetometer and altitude data. You can subscribe to the roll, pitch, yaw and battery level</description>
 
-  <maintainer email="simranbhangu01@gmail.com">Simmu</maintainer>
+  <maintainer email="simranjeet@cse.iitb.ac.in.com">Simranjeet Singh</maintainer>
   <license>BSD</license>
-
+  <author email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</author>
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>drone_server</run_depend>
   <run_depend>drone_client</run_depend>

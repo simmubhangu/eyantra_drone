@@ -4,7 +4,9 @@
   <version>0.0.0</version>
   <description>The eyantra_drone package</description>
 
-  <maintainer email="simranbhangu01@gmail.com">Simmu</maintainer>
+    <maintainer email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</maintainer>
+
+  <author email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</author>
 
   <license>BSD</license>
 
