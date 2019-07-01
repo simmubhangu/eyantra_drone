@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from drone_client.srv import *
+from edrone_client.srv import *
 import rospy
 from std_msgs.msg import Float64
 from std_msgs.msg import Int32
@@ -8,7 +8,7 @@ class request_data():
 	"""docstring for request_data"""
 	def __init__(self):
 		rospy.init_node('drone_board_data')
-		data = rospy.Service('PlutoService', drone_service, self.access_data)
+		data = rospy.Service('PlutoService', edrone_services, self.access_data)
 		
 	def access_data(self, req):
 		 print "accx = " + str(req.accX), "accy = " + str(req.accY), "accz = " + str(req.accZ)
@@ -18,7 +18,7 @@ class request_data():
 		 print "altitude = " +str(req.alt)
 		 print "battery = " + str(req.battery), "Power Consumed = " + str(req.rssi)
 		 rospy.sleep(.1)
-		 return drone_serviceResponse(rcAUX2 =1500)
+		 return edrone_servicesResponse(rcAUX2 =1500)
 
 test = request_data()
 rospy.spin()

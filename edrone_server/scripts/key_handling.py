@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from drone_client.srv import *
-from drone_client.msg import *
+from edrone_client.srv import *
+from edrone_client.msg import *
 from std_msgs.msg import Int16
 import rospy
 
@@ -8,10 +8,10 @@ class send_data():
 	"""docstring for request_data"""
 	def __init__(self):
 		rospy.init_node('drone_server')
-		self.command_pub = rospy.Publisher('/drone_command', eyantra_drone, queue_size=1)
+		self.command_pub = rospy.Publisher('/drone_command', edrone_msgs, queue_size=1)
 
 		self.key_value =0
-		self.cmd = eyantra_drone()
+		self.cmd = edrone_msgs()
 		self.cmd.rcRoll =1500
 		self.cmd.rcPitch = 1500
 		self.cmd.rcYaw =1500

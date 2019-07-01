@@ -1,8 +1,8 @@
 #include "ros/ros.h"
-#include "drone_client/drone_service.h"
+#include "edrone_client/edrone_services.h"
 
-bool myFunction(drone_client::drone_service::Request  &req,
-         drone_client::drone_service::Response &res)
+bool myFunction(edrone_client::edrone_services::Request  &req,
+         edrone_client::edrone_services::Response &res)
 {
   ROS_INFO("Ax=%f, Ay=%f, Az=%f", req.accX, req.accY, req.accZ);
   ROS_INFO("Gx=%f, Gy=%f, Gz=%f", req.gyroX, req.gyroY, req.gyroZ);
@@ -21,11 +21,11 @@ bool myFunction(drone_client::drone_service::Request  &req,
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "PlutoData");
+  ros::init(argc, argv, "DroneData");
   ros::NodeHandle n;
 
-  ros::ServiceServer service = n.advertiseService("PlutoService", myFunction);
-  printf("Ready to Provide Pluto Service\n");
+  ros::ServiceServer service = n.advertiseService("DroneService", myFunction);
+  printf("Ready to Provide Drone Service\n");
   ros::spin();
 
   return 0;

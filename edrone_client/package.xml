@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>drone_client</name>
+  <name>edrone_client</name>
   <version>1.0.1</version>
-  <description>eyantra_drone package</description>
+  <description>The eyantra_drone package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

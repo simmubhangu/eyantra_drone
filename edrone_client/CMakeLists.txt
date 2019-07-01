@@ -1,23 +1,36 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(drone_server)
+project(edrone_client)
 
 ## Add support for C++11, supported in ROS Kinetic and newer
 # add_definitions(-std=c++11)
+
+add_definitions(-std=c++11)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} -Wall -g -O4 -march=native -Wfatal-errors")
+
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+
+
   roscpp
   rospy
   std_msgs
-  drone_client
   message_generation
+  cv_bridge
+  image_transport
 
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+
+find_package(SDL2 REQUIRED SDL2)
+
+find_package(OpenCV REQUIRED)
+message(STATUS "Using OpenCV version ${OpenCV_VERSION}")
+find_package(Boost COMPONENTS program_options thread system REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -50,18 +63,17 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
- # add_message_files(
- #   FILES
- #   # PidTune.msg
- #   # PlotData.msg
- # )
+add_message_files(
+  FILES
+  edrone_msgs.msg
+)
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
+add_service_files(
+   FILES
+    edrone_services.srv
 #   Service2.srv
-# )
+ )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -71,9 +83,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
+ generate_messages(
    DEPENDENCIES
    std_msgs
+  # actionlib_msgs
+   # Or other packages containing msgs
  )
 
 ################################################
@@ -106,11 +120,18 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  #INCLUDE_DIRS include
+  INCLUDE_DIRS include
   LIBRARIES drone_client
-  CATKIN_DEPENDS roscpp rospy std_msgs
-  #DEPENDS system_lib
-  message_runtime
+
+ CATKIN_DEPENDS roscpp
+ cv_bridge
+ sensor_msgs
+ rospy
+ std_msgs
+
+
+ message_runtime
+#  DEPENDS system_lib
 )
 
 ###########
@@ -119,15 +140,16 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+include_directories(include)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/drone_client.cpp
+#   src/${PROJECT_NAME}/whyconclient.cpp
 # )
+
+add_library(edrone_client src/Communication.cpp src/Protocol.cpp)
+target_link_libraries(edrone_client)
+
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -137,7 +159,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/plutoclient_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/whyconclient_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -194,7 +216,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_plutoclient.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_whyconclient.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
@@ -203,9 +225,40 @@ include_directories(
 # catkin_add_nosetests(test)
 
 
+## Find catkin and any catkin packages
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs cv_bridge image_transport genmsg)
 
-add_executable(droneserver src/drone_server.cpp)
-target_link_libraries(droneserver ${catkin_LIBRARIES})
-add_dependencies(droneserver drone_server_gencpp)
+## Declare ROS messages and services
+#add_message_files(DIRECTORY msg FILES Num.msg)
+#add_service_files(DIRECTORY srv FILES AddTwoInts.srv)
+
+## Generate added messages and services
+#generate_messages(DEPENDENCIES std_msgs)
+
+## Declare a catkin package
+catkin_package()
 
 
+
+add_executable(edroneclient src/DroneNode.cpp)
+target_link_libraries(edroneclient ${catkin_LIBRARIES} edrone_client)
+add_dependencies(edroneclient edrone_client_generate_messages_cpp)
+
+add_executable(edroneswarm src/DroneSwarm.cpp)
+target_link_libraries(edroneswarm ${catkin_LIBRARIES} edrone_client)
+add_dependencies(edroneswarm edrone_client_generate_messages_cpp)
+
+add_executable(edronecam src/DroneCam.cpp)
+target_link_libraries(edronecam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} edrone_client)
+#add_dependencies(edronecam edrone_client_generate_messages_cpp)
+
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+
+target_link_libraries(edronecam SDL2 "/usr/lib/x86_64-linux-gnu/libavcodec.so" "/usr/lib/x86_64-linux-gnu/libavformat.so" 
+"/usr/lib/x86_64-linux-gnu/libavutil.so" "/usr/lib/x86_64-linux-gnu/libavdevice.so" 
+"/usr/lib/x86_64-linux-gnu/libswscale.so" "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
+
+#target_link_libraries(DroneCam ${OpenCV_LIBS} ${Boost_LIBRARIES})
+
+SET_TARGET_PROPERTIES(edroneclient PROPERTIES LINKER_LANGUAGE CXX)

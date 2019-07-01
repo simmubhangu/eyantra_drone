@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "drone_client/drone_service.h"
+#include "edrone_client/edrone_services.h"
 #include <geometry_msgs/PoseArray.h>
 #include <sys/time.h>
 #include <boost/thread.hpp>
@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <eyantra_drone/Common.h>
 #include <eyantra_drone/Protocol.h>
-#include <drone_client/eyantra_drone.h>
+#include <edrone_client/edrone_msgs.h>
 // #include <eyantra_drone/JoystickClient.h>
 // #include <eyantra_drone/Position.h>
 
@@ -25,7 +25,7 @@ Communication com;
 Protocol pro;
 
 ros::ServiceClient serviceClient;
-drone_client::drone_service service;
+edrone_client::edrone_services service;
 
 int userRC[8]={1500,1500,1500,1500,1000,1000,1000,1000};
 
@@ -99,7 +99,7 @@ void *serviceFunction(void *threadid){
  pthread_exit(NULL);
 }
 
-void Callback(const drone_client::eyantra_drone::ConstPtr& msg){
+void Callback(const edrone_client::edrone_msgs::ConstPtr& msg){
  userRC[0] = msg->rcRoll;
  userRC[1] = msg->rcPitch;
  userRC[2] = msg->rcThrottle;
@@ -142,7 +142,7 @@ int main(int argc, char **argv){
         exit(-1);
       }
 
-      serviceClient = n.serviceClient<drone_client::drone_service>("droneService",true);
+      serviceClient = n.serviceClient<edrone_client::edrone_services>("droneService",true);
       //cout << "main() : creating service thread, " << i << endl;
       rc = pthread_create(&serviceThread, NULL, serviceFunction, 	(void *)4);
       
