@@ -47,32 +47,32 @@ bool Communication::connectSock(){
   int valopt;
   socklen_t lon;
 
-  cout<<"Connecting to Pluto......\n";
+  cout<<"Connecting to eDrone......\n";
 
   // Create socket
   sockID = socket(AF_INET, SOCK_STREAM, 0);
   //Check if socket is created. If not, socket() returns -1
   if (sockID < 0) {
     // fprintf(stderr, "Error creating socket (%d %s)\n", errno, strerror(errno));
-     cout<<"Cannot connect to Pluto, please try again1\n";
+     cout<<"Cannot connect to DroneNode, please try again1\n";
      exit(0);
   }
 
   addr.sin_family = AF_INET;
-  addr.sin_port = htons(23);//23 is the PORT to connect to as defined in PlutoNode.cpp. Use port 9060 for pluto camera!
-  addr.sin_addr.s_addr = inet_addr("192.168.4.1");//Use 192.168.0.1 for pluto camera!
+  addr.sin_port = htons(23);//23 is the PORT to connect to as defined in DroneNode.cpp. Use port 9060 for Drone camera!
+  addr.sin_addr.s_addr = inet_addr("192.168.4.1");//Use 192.168.0.1 for Drone camera!
   
   //socket() sets it to blocking
   // Set to non-blocking. arg will re
   if( (arg = fcntl(sockID, F_GETFL, NULL)) < 0) {
     // fprintf(stderr, "Error fcntl(..., F_GETFL) (%s)\n", strerror(errno));
-    cout<<"Cannot connect to Pluto, please try again2\n";
+    cout<<"Cannot connect to Drone, please try again2\n";
      exit(0);
   }
   arg |= O_NONBLOCK;
   if( fcntl(sockID, F_SETFL, arg) < 0) {
     // fprintf(stderr, "Error fcntl(..., F_SETFL) (%s)\n", strerror(errno));
-    cout<<"Cannot connect to Pluto, please try again3\n";
+    cout<<"Cannot connect to Drone, please try again3\n";
     exit(0);
   }
 
@@ -93,7 +93,7 @@ bool Communication::connectSock(){
         //fprintf(stderr,"socket is ready %d",res);
         if (res < 0 && errno != EINTR) {
           //fprintf(stderr, "Error connecting %d - %s\n", errno, strerror(errno));
-          cout<<"Cannot connect to Pluto, please try again4\n";
+          cout<<"Cannot connect to Drone, please try again4\n";
           exit(0);
         }
         else if (res > 0) {
@@ -101,13 +101,13 @@ bool Communication::connectSock(){
           lon = sizeof(int);
           if (getsockopt(sockID, SOL_SOCKET, SO_ERROR, (void*)(&valopt), &lon) < 0) {
             //fprintf(stderr, "Error in getsockopt() %d - %s\n", errno, strerror(errno));
-                 cout<<"Cannot connect to Pluto, please try again5\n";
+                 cout<<"Cannot connect to Drone, please try again5\n";
                  exit(0);
               }
               // Check the value returned...
               if (valopt) {
                 // fprintf(stderr, "Error in delayed connection() %d - %s\n", valopt, strerror(valopt));
-                cout<<"Cannot connect to Pluto, please try again6\n";
+                cout<<"Cannot connect to Drone, please try again6\n";
 
                  exit(0);
               }
@@ -115,14 +115,14 @@ bool Communication::connectSock(){
            }
            else {
             //  fprintf(stderr, "Timeout in select() - Cancelling!\n");
-             cout<<"Cannot connect to Pluto, please try again7\n";
+             cout<<"Cannot connect to Drone, please try again7\n";
               exit(0);
            }
         } while (1);
      }
      else {
         //fprintf(stderr, "Error connecting %d - %s\n", errno, strerror(errno));
-         cout<<"Cannot connect to Pluto, please try again8\n";
+         cout<<"Cannot connect to Drone, please try again8\n";
         exit(0);
      }
   }
@@ -130,13 +130,13 @@ bool Communication::connectSock(){
   // Set to blocking mode again...
   if( (arg = fcntl(sockID, F_GETFL, NULL)) < 0) {
     // fprintf(stderr, "Error fcntl(..., F_GETFL) (%s)\n", strerror(errno));
-     cout<<"Cannot connect to Pluto, please try again9\n";
+     cout<<"Cannot connect to Drone, please try again9\n";
       exit(0);
   }
   arg &= (~O_NONBLOCK);
   if( fcntl(sockID, F_SETFL, arg) < 0) {
     // fprintf(stderr, "Error fcntl(..., F_SETFL) (%s)\n", strerror(errno));
-     cout<<"Cannot connect to Pluto, please try again0\n";
+     cout<<"Cannot connect to Drone, please try again0\n";
      exit(0);
   }
   // I hope that is all
@@ -144,7 +144,7 @@ bool Communication::connectSock(){
   /* Check the status for the keepalive option */
   if(getsockopt(sockID, SOL_SOCKET, SO_KEEPALIVE, &optval, &optlen) < 0) {
     //  perror("getsockopt()");
-    cout<<"Cannot connect to Pluto, please try again11\n";
+    cout<<"Cannot connect to Drone, please try again11\n";
     close(sockID);
     exit(EXIT_FAILURE);
   }
@@ -154,7 +154,7 @@ bool Communication::connectSock(){
   optlen = sizeof(optval);
   if(setsockopt(sockID, SOL_SOCKET, SO_KEEPALIVE, &optval, optlen) < 0) {
     //  perror("setsockopt()");
-      cout<<"Cannot connect to Pluto, please try again12\n";
+      cout<<"Cannot connect to Drone, please try again12\n";
       close(sockID);
       exit(EXIT_FAILURE);
   }
@@ -162,7 +162,7 @@ bool Communication::connectSock(){
   /* Check the status again */
   if(getsockopt(sockID, SOL_SOCKET, SO_KEEPALIVE, &optval, &optlen) < 0) {
   //  perror("getsockopt()");
-      cout<<"Cannot connect to Pluto, please try again13\n";
+      cout<<"Cannot connect to Drone, please try again13\n";
       close(sockID);
       exit(EXIT_FAILURE);
   }
@@ -175,7 +175,7 @@ bool Communication::connectSock(){
   if (retval != 0) {
     /* there was a problem getting the error code */
     //  fprintf(stderr, "error getting socket error code: %s\n", strerror(retval));
-    cout<<"Cannot connect to Pluto, please try again14\n";
+    cout<<"Cannot connect to Drone, please try again14\n";
     exit(EXIT_FAILURE);
     // return;
   }
@@ -183,11 +183,11 @@ bool Communication::connectSock(){
   if (error != 0) {
     /* socket has a non zero error status */
     //  fprintf(stderr, "socket error: %s\n", strerror(error));
-    cout<<"Cannot connect to Pluto, please try again15\n";
+    cout<<"Cannot connect to Drone, please try again15\n";
     exit(EXIT_FAILURE);
   }else{
     //fprintf(stderr, "socket is up \n");
-    cout<<"Pluto Connected\n";
+    cout<<"eDrone Connected\n";
   }
   return true;
 }
@@ -270,7 +270,6 @@ void Communication::readFrame(){
         //  evaluateCommand(cmd, (int) dataSize);
         bufferIndex=0;
         //printf("cmd Value= %i\n",cmd );
-        cout<<"read Data ";
         pro.evaluateCommand(cmd);
         //SONG BO ---------------------------------------
         //  DataFlow = DATA_FLOW_TIME_OUT;
@@ -292,33 +291,33 @@ bool Communication::connectMulSock(const std::string& ip, int index){
   int valopt;
   socklen_t lon;
 
-  cout<<"Connecting to Pluto\n";
+  cout<<"Connecting to Drone\n";
 
   // Create interface
   sockIDList[index] = socket(AF_INET, SOCK_STREAM, 0);
   //Check if socket is created. If not, socket() returns -1
   if (sockIDList[index] < 0) {
     // fprintf(stderr, "Error creating socket (%d %s)\n", errno, strerror(errno));
-     cout<<"Cannot connect to Pluto, please try again1\n";
+     cout<<"Cannot connect to Drone, please try again1\n";
      exit(0);
   }
 
   //address of the server
   addr.sin_family = AF_INET;
-  addr.sin_port = htons(23);//23 is the PORT to connect to as defined in PlutoNode.cpp!
+  addr.sin_port = htons(23);//23 is the PORT to connect to as defined in DroneNode.cpp!
   addr.sin_addr.s_addr = inet_addr(ip.c_str());
 
   //socket() sets it to blocking
   // Set to non-blocking. arg will re
   if( (arg = fcntl(sockIDList[index], F_GETFL, NULL)) < 0) {
     // fprintf(stderr, "Error fcntl(..., F_GETFL) (%s)\n", strerror(errno));
-    cout<<"Cannot connect to Pluto, please try again2\n";
+    cout<<"Cannot connect to Drone, please try again2\n";
      exit(0);
   }
   arg |= O_NONBLOCK;
   if( fcntl(sockIDList[index], F_SETFL, arg) < 0) {
     // fprintf(stderr, "Error fcntl(..., F_SETFL) (%s)\n", strerror(errno));
-    cout<<"Cannot connect to Pluto, please try again3\n";
+    cout<<"Cannot connect to Drone, please try again3\n";
     exit(0);
   }
 
@@ -340,33 +339,33 @@ bool Communication::connectMulSock(const std::string& ip, int index){
         // cout<<res;
         if (res < 0 && errno != EINTR) {
           //fprintf(stderr, "Error connecting %d - %s\n", errno, strerror(errno));
-          cout<<"Cannot connect to Pluto, please try again4\n";
+          cout<<"Cannot connect to Drone, please try again4\n";
           exit(0);
         }else if (res > 0) {
           // Socket selected for write
           lon = sizeof(int);
           if (getsockopt(sockIDList[index], SOL_SOCKET, SO_ERROR, (void*)(&valopt), &lon) < 0) {
             //fprintf(stderr, "Error in getsockopt() %d - %s\n", errno, strerror(errno));
-            cout<<"Cannot connect to Pluto, please try again5\n";
+            cout<<"Cannot connect to Drone, please try again5\n";
             exit(0);
           }
           // Check the value returned...
           if (valopt) {
             // fprintf(stderr, "Error in delayed connection() %d - %s\n", valopt, strerror(valopt));
-            cout<<"Cannot connect to Pluto, please try again6\n";
+            cout<<"Cannot connect to Drone, please try again6\n";
             exit(0);
           }
           break;
         }else {
           //  fprintf(stderr, "Timeout in select() - Cancelling!\n");
-          cout<<"Cannot connect to Pluto, please try again7\n";
+          cout<<"Cannot connect to Drone, please try again7\n";
           exit(0);
         }
       }while (1);
      }
      else {
         //fprintf(stderr, "Error connecting %d - %s\n", errno, strerror(errno));
-         cout<<"Cannot connect to Pluto, please try again8\n";
+         cout<<"Cannot connect to Drone, please try again8\n";
         exit(0);
      }
   }
@@ -374,20 +373,20 @@ bool Communication::connectMulSock(const std::string& ip, int index){
   // Set to blocking mode again...
   if( (arg = fcntl(sockIDList[index], F_GETFL, NULL)) < 0) {
     // fprintf(stderr, "Error fcntl(..., F_GETFL) (%s)\n", strerror(errno));
-     cout<<"Cannot connect to Pluto, please try again9\n";
+     cout<<"Cannot connect to Drone, please try again9\n";
       exit(0);
   }
   arg &= (~O_NONBLOCK);
   if( fcntl(sockIDList[index], F_SETFL, arg) < 0) {
     // fprintf(stderr, "Error fcntl(..., F_SETFL) (%s)\n", strerror(errno));
-     cout<<"Cannot connect to Pluto, please try again10\n";
+     cout<<"Cannot connect to Drone, please try again10\n";
      exit(0);
   }
 
   /* Check the status for the keepalive option */
   if(getsockopt(sockIDList[index], SOL_SOCKET, SO_KEEPALIVE, &optval, &optlen) < 0) {
     //  perror("getsockopt()");
-    cout<<"Cannot connect to Pluto, please try again11\n";
+    cout<<"Cannot connect to Drone, please try again11\n";
     close(sockIDList[index]);
     exit(EXIT_FAILURE);
   }
@@ -397,7 +396,7 @@ bool Communication::connectMulSock(const std::string& ip, int index){
   optlen = sizeof(optval);
   if(setsockopt(sockIDList[index], SOL_SOCKET, SO_KEEPALIVE, &optval, optlen) < 0) {
     //  perror("setsockopt()");
-      cout<<"Cannot connect to Pluto, please try again12\n";
+      cout<<"Cannot connect to Drone, please try again12\n";
       close(sockIDList[index]);
       exit(EXIT_FAILURE);
   }
@@ -405,7 +404,7 @@ bool Communication::connectMulSock(const std::string& ip, int index){
   /* Check the status again */
   if(getsockopt(sockIDList[index], SOL_SOCKET, SO_KEEPALIVE, &optval, &optlen) < 0) {
   //  perror("getsockopt()");
-      cout<<"Cannot connect to Pluto, please try again13\n";
+      cout<<"Cannot connect to Drone, please try again13\n";
       close(sockIDList[index]);
       exit(EXIT_FAILURE);
   }
@@ -418,7 +417,7 @@ bool Communication::connectMulSock(const std::string& ip, int index){
   if (retval != 0) {
     /* there was a problem getting the error code */
     //  fprintf(stderr, "error getting socket error code: %s\n", strerror(retval));
-    cout<<"Cannot connect to Pluto, please try again14\n";
+    cout<<"Cannot connect to Drone, please try again14\n";
     exit(EXIT_FAILURE);
     // return;
   }
@@ -426,11 +425,11 @@ bool Communication::connectMulSock(const std::string& ip, int index){
   if (error != 0) {
     /* socket has a non zero error status */
     //  fprintf(stderr, "socket error: %s\n", strerror(error));
-    cout<<"Cannot connect to Pluto, please try again15\n";
+    cout<<"Cannot connect to Drone, please try again15\n";
     exit(EXIT_FAILURE);
   }else{
     //fprintf(stderr, "socket is up \n");
-    cout<<"Pluto Connected\n";
+    cout<<"Drone Connected\n";
   }
   return true;
 }

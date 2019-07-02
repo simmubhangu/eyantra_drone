@@ -67,15 +67,7 @@ void *serviceFunction(void *threadid){
   {
       if (serviceClient.call(service))
       {
-       //  ROS_INFO("Sum: %ld", (long int)service.response.rcAUX1);
-       // userRC[0]=service.response.rcRoll;
-       // userRC[1]=service.response.rcPitch;
-       // userRC[2]=service.response.rcThrottle;
-       // userRC[3]=service.response.rcYaw;
-       // userRC[4]=service.response.rcAUX1;
-       // userRC[5]=service.response.rcAUX2;
-       // userRC[6]=service.response.rcAUX3;
-       // userRC[7]=service.response.rcAUX4;
+
        service.request.accX=accX;
        service.request.accY=accY;
        service.request.accZ=accZ;
@@ -91,10 +83,7 @@ void *serviceFunction(void *threadid){
        service.request.alt=alt;
        service.request.battery=battery;
        service.request.rssi=rssi;
-
-       // cout << alt << endl;
-    //usleep(1000);
-  }
+      }
   }
  pthread_exit(NULL);
 }
@@ -114,7 +103,7 @@ void Callback(const edrone_client::edrone_msgs::ConstPtr& msg){
 int main(int argc, char **argv){
     pthread_t thread, readThread, writeThread, serviceThread;
     int rc;
-    ros::init(argc, argv, "dronenode");
+    ros::init(argc, argv, "DroneNode");
     ros::NodeHandle n;
     ros::Subscriber sub = n.subscribe("drone_command", 1000, Callback);
     rc = pthread_create(&thread, NULL, createSocket, 	(void *)1);

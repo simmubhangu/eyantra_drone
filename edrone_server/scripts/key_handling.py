@@ -41,7 +41,7 @@ class send_data():
 	def indentify_key(self, msg):
 		self.key_value = msg.data
 
-		print "msg",self.key_value
+		# print "msg",self.key_value
 		if self.key_value == 0:         
 			self.disarm()
 		if self.key_value == 70:

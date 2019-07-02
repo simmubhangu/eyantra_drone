@@ -8,7 +8,7 @@ class request_data():
 	"""docstring for request_data"""
 	def __init__(self):
 		rospy.init_node('drone_board_data')
-		data = rospy.Service('PlutoService', edrone_services, self.access_data)
+		data = rospy.Service('eDroneService', edrone_services, self.access_data)
 		
 	def access_data(self, req):
 		 print "accx = " + str(req.accX), "accy = " + str(req.accY), "accz = " + str(req.accZ)
