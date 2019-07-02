@@ -1,8 +1,7 @@
 <launch>
 
   <node name="edroneclient" type="edroneclient" pkg="edrone_client"/>
-  <node name="key_handling" type="key_handling.py" pkg="edrone_server"/>
-  <node name="key_command" type="key_command.py" pkg="edrone_server" output="screen" />
+  <node name="drone_teleop" type="drone_teleop.py" pkg="edrone_server" output="screen" />
 
   <!-- Node for connecting multiple plutos -->
   <!-- <node name="edroneswarm" type="edroneswarm" pkg="edrone_client"/> -->

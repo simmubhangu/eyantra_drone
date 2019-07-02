@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import rospy
 from edrone_client.msg import *
 
