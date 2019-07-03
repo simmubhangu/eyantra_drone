@@ -1,0 +1,46 @@
+language: cpp
+compiler: gcc
+
+env: CMAKE_CMD_OPTION="-DENABLE_TESTING=1 "
+
+matrix:
+  include:
+    - os: linux
+      sudo: false
+      dist: trusty
+      compiler: gcc
+      env: CMAKE_CMD_OPTION="-DENABLE_COVERAGE=1"
+
+    - os: osx
+      compiler: xcode6.4
+
+    - os: osx
+      compiler: xcode8
+addons:
+  apt:
+    packages:
+      - cmake
+      - libboost-dev
+      - libboost-test-dev
+      - lcov
+
+script:
+  - mkdir build
+  - cd build
+  - cmake .. $CMAKE_CMD_OPTION
+  - make -j 2
+  - make test
+
+# Hook code coverage report with codecov.io
+after_success:
+    # Creating report
+  - cd ${TRAVIS_BUILD_DIR}
+  - lcov --directory . --capture --output-file coverage.info # capture coverage info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
+  - lcov --list coverage.info #debug info
+  # Uploading report to CodeCov
+  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+
+# Disable notifications
+notifications:
+  email: false
