@@ -14,7 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 )
 
-find_package(SDL2 REQUIRED SDL2)
+#find_package(SDL2 REQUIRED SDL2)
 
 find_package(OpenCV REQUIRED)
 message(STATUS "Using OpenCV version ${OpenCV_VERSION}")
