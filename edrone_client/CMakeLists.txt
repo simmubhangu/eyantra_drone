@@ -26,7 +26,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
-find_package(SDL2 REQUIRED SDL2)
+#find_package(SDL2 REQUIRED SDL2)
 
 find_package(OpenCV REQUIRED)
 message(STATUS "Using OpenCV version ${OpenCV_VERSION}")
