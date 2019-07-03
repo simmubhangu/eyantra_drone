@@ -25,7 +25,7 @@
 # Travis environment variables in general.
 #
 # Author: Felix Duvallet <felixd@gmail.com>
-
+# Edited By: Simranjeet Singh <simranjeet@cse.iitb.ac.in>
 # NOTE: The build lifecycle on Travis.ci is something like this:
 #    before_install
 #    install
