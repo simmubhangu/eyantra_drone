@@ -10,14 +10,10 @@
 #include <eyantra_drone/Common.h>
 #include <eyantra_drone/Protocol.h>
 #include <edrone_client/edrone_msgs.h>
-// #include <eyantra_drone/JoystickClient.h>
-// #include <eyantra_drone/Position.h>
-
 
 #define PORT 23
 
 using namespace std;
-
 
 bool isSocketCreate=false;
 
@@ -30,8 +26,8 @@ edrone_client::edrone_services service;
 int userRC[8]={1500,1500,1500,1500,1000,1000,1000,1000};
 
 void *createSocket(void *threadid){
- isSocketCreate=com.connectSock();
- pthread_exit(NULL);
+  isSocketCreate=com.connectSock();
+  pthread_exit(NULL);
 };
 
 void *writeFunction(void *threadid){
@@ -85,18 +81,18 @@ void *serviceFunction(void *threadid){
        service.request.rssi=rssi;
       }
   }
- pthread_exit(NULL);
+  pthread_exit(NULL);
 }
 
 void Callback(const edrone_client::edrone_msgs::ConstPtr& msg){
- userRC[0] = msg->rcRoll;
- userRC[1] = msg->rcPitch;
- userRC[2] = msg->rcThrottle;
- userRC[3] = msg->rcYaw;
- userRC[4] = msg->rcAUX1;
- userRC[5] = msg->rcAUX2;
- userRC[6] = msg->rcAUX3;
- userRC[7] = msg->rcAUX4;
+   userRC[0] = msg->rcRoll;
+   userRC[1] = msg->rcPitch;
+   userRC[2] = msg->rcThrottle;
+   userRC[3] = msg->rcYaw;
+   userRC[4] = msg->rcAUX1;
+   userRC[5] = msg->rcAUX2;
+   userRC[6] = msg->rcAUX3;
+   userRC[7] = msg->rcAUX4;
  // cout << "roll = " << userRC[0] << "pitch = " <<userRC[1] << "Throttle = "<< userRC[2]  << endl;
 }
 

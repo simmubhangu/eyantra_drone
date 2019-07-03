@@ -11,8 +11,7 @@
 #include <eyantra_drone/Protocol.h>
 #include <edrone_client/edrone_msgs.h>
 #include <stdlib.h>
-// #include <eyantra_drone/JoystickClient.h>
-// #include <eyantra_drone/Position.h>
+
 #include <string>
 
 #define PORT 23
@@ -93,15 +92,6 @@ void *serviceFunction(void *arg){
   {
     if (serviceClient.call(service[local_var.index]))
     {
-      //  ROS_INFO("Sum: %ld", (long int)service.response.rcAUX1);
-      // userRC[0]=service.response.rcRoll;
-      // userRC[1]=service.response.rcPitch;
-      // userRC[2]=service.response.rcThrottle;
-      // userRC[3]=service.response.rcYaw;
-      // userRC[4]=service.response.rcAUX1;
-      // userRC[5]=service.response.rcAUX2;
-      // userRC[6]=service.response.rcAUX3;
-      // userRC[7]=service.response.rcAUX4;
       service[local_var.index].request.accX=accX;
       service[local_var.index].request.accY=accY;
       service[local_var.index].request.accZ=accZ;
@@ -115,8 +105,6 @@ void *serviceFunction(void *arg){
       service[local_var.index].request.pitch=pitch;
       service[local_var.index].request.yaw=yaw;
       service[local_var.index].request.alt=alt;
-      // cout << alt << endl;
-      //usleep(1000);
     }
   }
  pthread_exit(NULL);

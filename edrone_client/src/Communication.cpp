@@ -193,16 +193,7 @@ bool Communication::connectSock(){
 }
 
 int Communication::writeSock(const void *buf, int count){
-  // while (socketSyckLock) {
-  //   /* code */
-  // //printf("value of synclock in write = %i\n",socketSyckLock );
-  //   usleep(2);
-  // }
-  //usleep(2000);
   int k=write(sockID,buf,count);
-  //socketOpStarted=1;
-  //usleep(500);
-  //readFrame();
   socketSyckLock=1;
   return k;
 }
@@ -219,10 +210,6 @@ uint8_t Communication::readSock(void *buf, int count){
 
 void Communication::readFrame(){
   c = readSock(recbuf,1);
-  //  Log.v("READ", "Data: " + c);
-  //  printf("read Value= %i\n",c );
-  //  c_state = IDLE;
-  //  Log.e("MultiwiiProtocol", "Read  = null");
   if (c_state == IDLE){
     c_state = (c == '$') ? HEADER_START : IDLE;
   }else if (c_state == HEADER_START) {
@@ -265,9 +252,7 @@ void Communication::readFrame(){
         //  Log.e("Multiwii protocol",
         //        "Copter did not understand request type " + c);
       }else {
-        /* we got a valid response packet, evaluate it */
-        //SONG BO HERE WE RECEIVED ENOUGH DATA-----------------------
-        //  evaluateCommand(cmd, (int) dataSize);
+
         bufferIndex=0;
         //printf("cmd Value= %i\n",cmd );
         pro.evaluateCommand(cmd);
@@ -508,15 +493,9 @@ void Communication::readMulFrame(int index){
         //  Log.e("Multiwii protocol",
         //        "Copter did not understand request type " + c);
       }else {
-        /* we got a valid response packet, evaluate it */
-        //SONG BO HERE WE RECEIVED ENOUGH DATA-----------------------
-        //  evaluateCommand(cmd, (int) dataSize);
         bufferIndex=0;
         //printf("cmd Value= %i\n",cmd );
         cout<<cmd;
-        // pro.evaluateCommand(cmd);
-        //SONG BO ---------------------------------------
-        //  DataFlow = DATA_FLOW_TIME_OUT;
       }
     }else 
     {
