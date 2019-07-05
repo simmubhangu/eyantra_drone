@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/simmubhangu/eyantra_drone.svg?branch=master)](https://travis-ci.org/simmubhangu/eyantra_drone)
 # eyantra_drone
-Metapackage to control the plutodrone via service and topics 
+Metapackage to control the eyantra_drone via service and topics 
 <http://wiki.ros.org/eyantra_drone>
 
 ## Getting Started 
@@ -107,6 +107,6 @@ all_ips.push_back(&quot;&quot;);
 
 ###### TODO - Get drone data from multiple drones
 
-**Note: This feature is possible with ESP wifi of Pluto and will not work over Lewei camera wifi.**
+**Note: This feature is possible with ESP wifi of drone and will not work over Lewei camera wifi.**
 
 
