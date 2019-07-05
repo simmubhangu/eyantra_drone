@@ -3,9 +3,6 @@
 Metapackage to control the plutodrone via service and topics 
 <http://wiki.ros.org/eyantra_drone>
 
-# pluto-ros-package
-This package canbe used to control Pluto or PlutoX using keyboard, joystick or rostopic 
-
 ## Getting Started 
 Use following instructions on how to use this package:
 
