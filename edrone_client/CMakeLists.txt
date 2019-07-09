@@ -45,11 +45,11 @@ target_link_libraries(edrone_client)
 
 add_executable(edroneclient src/DroneNode.cpp)
 target_link_libraries(edroneclient ${catkin_LIBRARIES} edrone_client)
-add_dependencies(edroneclient edrone_client_generate_messages_cpp)
+add_dependencies(edroneclient ${PROJECT_NAME}_gencpp)
 
 add_executable(edroneswarm src/DroneSwarm.cpp)
 target_link_libraries(edroneswarm ${catkin_LIBRARIES} edrone_client)
-add_dependencies(edroneswarm edrone_client_generate_messages_cpp)
+add_dependencies(edroneswarm ${PROJECT_NAME}_gencpp)
 
 add_executable(edronecam src/DroneCam.cpp)
 target_link_libraries(edronecam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} edrone_client)
@@ -61,8 +61,7 @@ target_link_libraries(edronecam
     swscale
     avutil
     SDL2
-    ${Boost_LIBRARIES}
-    ${catkin_LIBRARIES}
  "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
+add_dependencies(edronecam ${PROJECT_NAME}_gencpp)
 
 #SET_TARGET_PROPERTIES(edroneclient PROPERTIES LINKER_LANGUAGE CXX)
