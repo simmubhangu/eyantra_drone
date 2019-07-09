@@ -28,7 +28,7 @@ add_service_files(
  )
 
 catkin_package(
- DEPENDS libsdl2-dev
+ 
  CATKIN_DEPENDS roscpp
  cv_bridge
  sensor_msgs
@@ -37,6 +37,7 @@ catkin_package(
  message_runtime
 )
 
+include_directories(libsdl2-dev ${catkin_INCLUDE_DIRS})
 include_directories(include)
 
 
@@ -61,8 +62,9 @@ target_link_libraries(edronecam
     swscale
     avutil
     SDL2
-
+    avdevice
+    avformat
  "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
-add_dependencies(edronecam ${PROJECT_NAME}_gencpp)
+#add_dependencies(edronecam ${PROJECT_NAME}_gencpp)
 
 #SET_TARGET_PROPERTIES(edroneclient PROPERTIES LINKER_LANGUAGE CXX)
