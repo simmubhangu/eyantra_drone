@@ -61,7 +61,6 @@ target_link_libraries(edronecam
     swscale
     avutil
     SDL2
-    avdevice
     avformat
  "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
 #add_dependencies(edronecam ${PROJECT_NAME}_gencpp)
