@@ -37,7 +37,6 @@ catkin_package(
  message_runtime
 )
 
-include_directories(libsdl2-dev ${catkin_INCLUDE_DIRS})
 include_directories(include)
 
 
