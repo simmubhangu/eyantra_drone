@@ -64,6 +64,6 @@ target_link_libraries(edronecam
     ${Boost_LIBRARIES}
     ${catkin_LIBRARIES}
  "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
-add_dependencies(edronecam ${PROJECT_NAME}_gencpp)
+#add_dependencies(edronecam ${PROJECT_NAME}_gencpp)
 
 #SET_TARGET_PROPERTIES(edroneclient PROPERTIES LINKER_LANGUAGE CXX)
