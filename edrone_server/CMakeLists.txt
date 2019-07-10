@@ -202,6 +202,6 @@ include_directories(
 
 add_executable(edroneserver src/drone_server.cpp)
 target_link_libraries(edroneserver ${catkin_LIBRARIES})
-
+add_dependencies(edroneserver edrone_client_gencpp)
 
 
