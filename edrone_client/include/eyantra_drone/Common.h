@@ -1,7 +1,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include "Communication.h"
+#include <eyantra_drone/Communication.h>
 
 
 extern Communication com;

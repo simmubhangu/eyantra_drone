@@ -1,0 +1,7 @@
+<launch>
+
+  <node name="edroneclient" type="edroneclient" pkg="edrone_client"/>
+  
+  <node name="edronecam" type="edronecam" pkg="edrone_client"/>
+
+</launch>

@@ -1,0 +1,8 @@
+<launch>
+
+  <node name="edroneclient" type="edroneclient" pkg="edrone_client"/>
+ 
+  <node name="edroneswarm" type="edroneswarm" pkg="edrone_client"/>
+
+
+</launch>

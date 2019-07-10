@@ -71,10 +71,6 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-   DEPENDENCIES
-   std_msgs
- )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -206,6 +202,6 @@ include_directories(
 
 add_executable(edroneserver src/drone_server.cpp)
 target_link_libraries(edroneserver ${catkin_LIBRARIES})
-add_dependencies(edroneserver edrone_server_gencpp)
+
 
 
