@@ -33,8 +33,11 @@ catkin_make
 # launch file to communication with  edrone
 
 roslaunch edrone_server drone_comb.launch
+
 # Follow the instruction on terminal to control the drone
-# Using ROSTopic:
+```
+## Using ROSTopic:
+```
 rostopic pub /drone_command edrone_client/edrone_msgs "{rcRoll: 1500, rcPitch: 1500, rcYaw: 1500, rcThrottle: 1000, rcAUX1: 0, rcAUX2: 0, rcAUX3: 0, rcAUX4: 1500}" // example of arming drone 
 
 ```
@@ -107,6 +110,6 @@ all_ips.push_back(&quot;&quot;);
 
 ###### TODO - Get drone data from multiple drones
 
-**Note: This feature is possible with ESP wifi of drone and will not work over Lewei camera wifi.**
+
 
 
