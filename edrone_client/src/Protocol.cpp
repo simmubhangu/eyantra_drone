@@ -1,3 +1,31 @@
+/*
+BSD 2-Clause License
+
+Copyright (c) 2019, Simranjeet Singh
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 #include <unistd.h>
 #include <eyantra_drone/Protocol.h>
 #include <string>
@@ -212,23 +240,23 @@ void Protocol::sendRequestMSP_SET_POS(int posArray[])
     // rc_signals.push_back((uint8_t) (channels[i] & 0xFF));
     //rc_signals.push_back( (uint8_t) ((channels[i] >> 8) & 0xFF));
   }
- sendRequestMSP(createPacketMSP(MSP_SET_POS, posData));
+  sendRequestMSP(createPacketMSP(MSP_SET_POS, posData));
 }
 
 void Protocol::sendRequestMSP_GET_DEBUG(std::vector<int> requests)
 {
   for (size_t i = 0; i < requests.size(); i++) {
-    {
+    
       sendRequestMSP(createPacketMSP(requests[i], std::vector<int8_t>()));
-    }
+    
   }
 }
 
 void Protocol::sendMulRequestMSP_GET_DEBUG(std::vector<int> requests, int index)
 {
   for (size_t i = 0; i < requests.size(); i++) {
-    {
+    
       sendMulRequestMSP(createPacketMSP(requests[i], std::vector<int8_t>()), index);
-    }
+    
   }
 }

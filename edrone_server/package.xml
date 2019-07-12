@@ -4,7 +4,7 @@
   <version>0.0.0</version>
   <description>The eyantra_drone package</description>
 
-    <maintainer email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</maintainer>
+  <maintainer email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</maintainer>
 
   <author email="simranjeet@cse.iitb.ac.in">Simranjeet Singh</author>
 
@@ -23,9 +23,4 @@
   <run_depend>edrone_client</run_depend>
   <run_depend>message_runtime</run_depend>
 
-  <!-- The export tag contains other, unspecified, tags -->
-  <export>
-    <!-- Other tools can request additional information be placed here -->
-
-  </export>
 </package>
