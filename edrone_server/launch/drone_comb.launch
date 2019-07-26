@@ -33,10 +33,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
   <node name="edroneclient" type="edroneclient" pkg="edrone_client"/>
   <node name="drone_teleop" type="drone_teleop.py" pkg="edrone_server" output="screen" />
 
-  <!-- Node for connecting multiple plutos -->
+  <!-- Node for connecting multiple drones -->
   <!-- <node name="edroneswarm" type="edroneswarm" pkg="edrone_client"/> -->
 
-  <!-- Node for connecting to pluto camera -->
+  <!-- Node for connecting to drone camera -->
   <!-- <node name="edronecam" type="edronecam" pkg="edrone_client"/> -->
 
 </launch>
