@@ -52,7 +52,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "DroneData");
   ros::NodeHandle n;
 
-  ros::ServiceServer service = n.advertiseService("DroneService", myFunction);
+  ros::ServiceServer service = n.advertiseService("eDroneService", myFunction);
   printf("Ready to Provide Drone Service\n");
   ros::spin();
 

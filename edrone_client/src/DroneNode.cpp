@@ -28,6 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <std_msgs/Float64.h>
 #include <edrone_client/edrone_services.h>
 #include <geometry_msgs/PoseArray.h>
 #include <sys/time.h>
@@ -155,7 +156,7 @@ int main(int argc, char **argv){
         exit(-1);
       }
 
-      serviceClient = n.serviceClient<edrone_client::edrone_services>("droneService",true);
+      serviceClient = n.serviceClient<edrone_client::edrone_services>("eDroneService",true);
       //cout << "main() : creating service thread, " << i << endl;
       rc = pthread_create(&serviceThread, NULL, serviceFunction, 	(void *)4);
       
