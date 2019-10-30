@@ -51,18 +51,17 @@ add_executable(edroneswarm src/DroneSwarm.cpp)
 target_link_libraries(edroneswarm ${catkin_LIBRARIES} edrone_client)
 add_dependencies(edroneswarm ${PROJECT_NAME}_gencpp)
 
-add_executable(edronecam src/DroneCam.cpp)
-target_link_libraries(edronecam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} edrone_client)
-
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-target_link_libraries(edronecam 
-    avcodec
-    swscale
-    avutil
-    SDL2
-    avformat
- "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
+#comment/delete the following lines to exclude the camera from cmake
+################################################################
+#add_executable(edronecam src/DroneCam.cpp)
+#target_link_libraries(edronecam ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES} edrone_client)
+
+
+#target_link_libraries(edronecam avcodec swscale avutil SDL2 avformat "${PROJECT_SOURCE_DIR}/lib/libLeweiLib.so")
+#################################################################
+
 #add_dependencies(edronecam ${PROJECT_NAME}_gencpp)
 
 #SET_TARGET_PROPERTIES(edroneclient PROPERTIES LINKER_LANGUAGE CXX)
