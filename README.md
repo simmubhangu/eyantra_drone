@@ -2,9 +2,6 @@
 # eyantra_drone
 Metapackage to control the eyantra_drone via service and topics 
 <http://wiki.ros.org/eyantra_drone>
-
-# HacktoberFest e-Yantra
-
 ---
 ![e-Yantra](logo.png "e-Yantra")
 ---
