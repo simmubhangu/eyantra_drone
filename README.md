@@ -6,19 +6,6 @@ Metapackage to control the eyantra_drone via service and topics
 ![e-Yantra](logo.png "e-Yantra")
 ---
 
-This repository is for controlling the Pluto Drone. You will need the Pluto Drone in order to work with this repository.
-
-## How to contribute to this project
-Fork this repository and get started. Currently, documentation and comments are missing within the code. You can create a pull request by adding documentation
-
-## Rules
-1. Use only the Pluto Drone for this project.
-2. You must add comments in your code. File level, function level and line level comments are expected wherever necessary
-
-## Winner
-First PR that follows the given rules and completes the given task, is declared the winner at e-Yantra's discretion
-
-
 ## Getting Started 
 Use following instructions on how to use this package:
 
