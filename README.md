@@ -112,6 +112,35 @@ all_ips.push_back(&quot;&quot;);
 ###### Send data: Follow procedure in ROSTopic Header to give commands to fly the drones. Add droneIndex in edrone_msgs for every topic. This index is the same as the index of the IP within 'all_ips' when you add it. 
 
 ###### TODO - Get drone data from multiple drones
+Cómo contribuir a este proyecto
+
+Bifurca este repositorio y comienza. Actualmente, faltan documentación y comentarios dentro del código. Puede crear una solicitud de extracción agregando documentación
+Reglas
+
+    Use solo el Plutón Drone para este proyecto.
+    Debe agregar comentarios en su código. Se esperan comentarios de nivel de archivo, nivel de función y nivel de línea siempre que sea necesario
+
+Ganador
+
+El primer RP que sigue las reglas dadas y completa la tarea dada, se declara ganador a discreción de e-Yantra
+Empezando
+
+Utilice las siguientes instrucciones sobre cómo usar este paquete:
+Prerrequisitos
+
+# libavcodec y libsdl2-dev para cámara
+sudo apt install libavcodec-dev libsdl2-dev
+
+Instalación
+
+# Navegar al espacio de trabajo de catkin
+cd <WORKSPACE_NAME>
+
+# repositorio de clones
+git clone https://github.com/simmubhangu/eyantra_drone.git
+
+# Construye el paquete
+catkin_make
 
 
 
